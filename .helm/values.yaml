@@ -1,0 +1,74 @@
+elCicdChart:
+  parameters:
+    KAFKA_SERVER: kafka-cluster-kafka-rtlistener-bootstrap-openshift-operators.apps-crc.testing:443
+    KAFKA_TOPIC_1: 'odd-topic'
+    KAFKA_TOPIC_2: 'even-topic'
+    CA_CRT: |-
+      -----BEGIN CERTIFICATE-----
+      MIIFLTCCAxWgAwIBAgIUWe0s2kcmL7K3oluvuHKmYIk8uTowDQYJKoZIhvcNAQEN
+      BQAwLTETMBEGA1UECgwKaW8uc3RyaW16aTEWMBQGA1UEAwwNY2x1c3Rlci1jYSB2
+      MDAeFw0yMjA5MDUxMTAwMjdaFw0yMzA5MDUxMTAwMjdaMC0xEzARBgNVBAoMCmlv
+      LnN0cmltemkxFjAUBgNVBAMMDWNsdXN0ZXItY2EgdjAwggIiMA0GCSqGSIb3DQEB
+      AQUAA4ICDwAwggIKAoICAQDbXijN4q5uqc5j7SE3h2ZxS1uj72+TEDnq4IOIOyt/
+      B9qqd+9GPITCLA0EpswjZzwinLFLuFb6Baue5Xkf4xHsWR2OuMPZda5ngaIXvJm+
+      Bgcw0DdWpsvqgqotEtnt+HZ4bvlSwAJC5sTJMNqmsFpfsm0UbxLCvaq8rY22177z
+      S3NOA+tvYcwxmepR+5l40N4PQSVQ/ePMhh4SNEaBna4qh3KtPIfVgzwjCxsuobpn
+      tpJnQ7dfHpad8+9pCR39+859wBygzP3hTzheGE57BCPohaRO9lbJNaS/RcbsBr3V
+      lAwgvEoxblNWPM5Lwv3WFLFsBIYWaU4bO1i/GUvsh0Dh3uSX/CbpWRCpjKsp+Gnf
+      SenyEmyOCYs4YXZcz+yQ+n8yphq9XYbwtdL1uEwokEZkUnHVBCHcaPNecvMG+Z7Y
+      4fXqBOJp52nCXJZ52I3CC3FMjLTghTAQUmIOomEHU1NsuhfWD6KHnV9Fro+DMD7Y
+      kA5UHXiJLwRuoC452L1cy4qdCafBZDXs8bUqwOcX9P18qdwHFxEtCbYyYVhSdAsC
+      /ZdUUNX4yEyJm6DnethhC8sEdWlLuwY5AjD/zV5iSKJJF8F7B8nGl4pT7PlpP656
+      HuQ+DHjd8V9qNO682997fe1C5z56T5UouTqHybXqmRY9IfGPbKUExWquuqgMamgi
+      kwIDAQABo0UwQzAdBgNVHQ4EFgQUsJ2MeBOkb8Jq+Sf/WrXJpq9roMAwEgYDVR0T
+      AQH/BAgwBgEB/wIBADAOBgNVHQ8BAf8EBAMCAQYwDQYJKoZIhvcNAQENBQADggIB
+      AMYLTHovlO64LEiCkMnR49Q0XhVkp42CKXlrnz1AB4iHnuU8gYrjoWVQicvgCf+w
+      dA83EgJEeLplt4sK4Zk8qOAeqvBX5K5hLrOUg/2E17x4tdRDEU5VmKWRtZO5++Ue
+      pYWcH2FvMZfpUcR0P1xHjjUTJjDns4c/C5/30LTRQ46/+OA2Gm4dEC/Poeh62rNZ
+      cjBOkf7K/4vtPMwdKLUD5B6rlj3tN2sSwTUNzPxw71l1nfurjkk6QvQskdBBte4+
+      aHOQ8X+5/PEKg6uBotH7U4Od74b4sAqBKiBXxtvKVBIFj/qC+ip6po1rljm787WO
+      beBWvw+b3q9hWx/dRddCzUmG3O0KqCKCGBtjDarVigEmrFfsqGIfE/8HFUxKsocz
+      hAFN0nUqcVT7TnVdCbYstpPVUBrvVHpwgOldbWE0+r9E9KgG+Y+HetOiGjScnRbE
+      WcvNzmoh1chaGOgUi62VPe2AVMAYyRHKmFKNvOr107KY4DacUPStYfozT+I4C5AT
+      ji0ZSnbrvuY0NCLFC9BNO2WcgRXSFK+MSwwyK9Jc38gZtuQF4AFXAEz9TRUwXYJf
+      BOX3AE1h9LaB0T7GLUxelkEQ8UO7ntpjFheuKqH+8Y2p9jeqAwiyCE5OnZW9lR0P
+      oShnDov3EME5IQFjm9hkY+cvcSwUtqxdi1qLYtDscJTC
+      -----END CERTIFICATE-----
+    
+  templates:
+  - templateName: deployment
+    env:
+    - name: KAFKA_SERVER
+      valueFrom:
+        configMapKeyRef:
+          name: kafka-config
+          key: KAFKA_SERVER
+    - name: KAFKA_TOPIC_1
+      valueFrom:
+        configMapKeyRef:
+          name: kafka-config
+          key: KAFKA_TOPIC_1
+    - name: KAFKA_TOPIC_2
+      valueFrom:
+        configMapKeyRef:
+          name: kafka-config
+          key: KAFKA_TOPIC_2
+    volumeMounts:
+      name: kafka-config
+      path: /mnt/kafka-config
+    volumes:
+      configMap:
+        name: kafka-config
+        items:
+        - key: ca.crt
+          path: ca.crt
+  
+  - templateName: configMap
+    appName: kafka-config
+    data:
+      KAFKA_SERVER: ${KAFKA_SERVER}
+      KAFKA_TOPIC_1: ${KAFKA_TOPIC_1}
+      KAFKA_TOPIC_2: ${KAFKA_TOPIC_2}
+      ca.crt: |-
+        ${CA_CRT}
+        
