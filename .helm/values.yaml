@@ -57,7 +57,8 @@ elCicdChart:
     - name: kafka-config
       mountPath: /mnt/kafka-config
     volumes:
-    - configMap:
+    - name: kafka-config
+      configMap:
         name: kafka-config
         items:
         - key: ca.crt
