@@ -65,7 +65,7 @@ elCicdChart:
           path: ca.crt
   
   - templateName: configMap
-    aspectName: kafka-config
+    appName: kafka-config
     data:
       KAFKA_SERVER: ${KAFKA_SERVER}
       KAFKA_TOPIC_1: ${KAFKA_TOPIC_1}
