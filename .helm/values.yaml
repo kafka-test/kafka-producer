@@ -1,5 +1,5 @@
 elCicdChart:
-  parameters:
+  elcicdDefs:
     KAFKA_SERVER: kafka-cluster-kafka-rtlistener-bootstrap-openshift-operators.apps-crc.testing:443
     KAFKA_TOPIC_1: 'odd-topic'
     KAFKA_TOPIC_2: 'even-topic'
@@ -65,7 +65,7 @@ elCicdChart:
           path: ca.crt
   
   - templateName: configMap
-    appName: kafka-config
+    aspectName: kafka-config
     data:
       KAFKA_SERVER: ${KAFKA_SERVER}
       KAFKA_TOPIC_1: ${KAFKA_TOPIC_1}
