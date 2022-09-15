@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 
 import os
-from kafka import KafkaProducer
+from kafka import KafkaProducer, KafkaAdminClient
 import json
 from bson import json_util
+from kafka.admin.new_partitions import NewPartitions
 import time
     
 def send_message(counter, topic):
@@ -16,6 +17,12 @@ hostname = os.environ['HOSTNAME']
 kafka_server = os.environ['KAFKA_SERVER']
 kafka_topic_1 = os.environ['KAFKA_TOPIC_1']
 kafka_topic_2 = os.environ['KAFKA_TOPIC_2']
+
+client = KafkaAdminClient(bootstrap_servers = kafka_server)
+rsp = client.create_partitions({
+    kafka_topic_1: NewPartitions(10),
+    kafka_topic_2: NewPartitions(10)
+})
 
 print("Producing messages to Kafka topic ...")
 producer = KafkaProducer(bootstrap_servers = kafka_server,
