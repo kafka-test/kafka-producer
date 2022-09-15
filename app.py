@@ -10,7 +10,8 @@ def send_message(counter, topic):
     message = {'value': counter}
     producer.send(topic, json.dumps(message, default = json_util.default).encode('utf-8'))
 
-# 'kafka-cluster-kafka-rtlistener-bootstrap-openshift-operators.apps-crc.testing:443'
+# 'dev-kafka-cluster-kafka-ext-bootstrap-openshift-operators.apps-crc.testing:443'
+# 'stg-kafka-cluster-kafka-ext-bootstrap-openshift-operators.apps-crc.testing:443'
 hostname = os.environ['HOSTNAME']
 kafka_server = os.environ['KAFKA_SERVER']
 kafka_topic_1 = os.environ['KAFKA_TOPIC_1']
