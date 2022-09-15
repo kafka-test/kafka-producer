@@ -1,38 +1,74 @@
 elCicdChart:
   elcicdDefs:
-    KAFKA_SERVER: kafka-cluster-kafka-rtlistener-bootstrap-openshift-operators.apps-crc.testing:443
     KAFKA_TOPIC_1: 'odd-topic'
     KAFKA_TOPIC_2: 'even-topic'
+  
+  elcicdDefs-dev:
+    KAFKA_SERVER: dev-kafka-cluster-kafka-ext-bootstrap-openshift-operators.apps-crc.testing
     CA_CRT: |-
       -----BEGIN CERTIFICATE-----
-      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
+      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
-      MDAeFw0yMjA5MDUxMTAwMjdaFw0yMzA5MDUxMTAwMjdaMC0xEzARBgNVBAoMCmlv
+      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
-      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
+      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
-      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
+      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
+      -----END CERTIFICATE-----
+    
+  elcicdDefs-stg:
+    KAFKA_SERVER: stg-kafka-cluster-kafka-ext-bootstrap-openshift-operators.apps-crc.testing
+    CA_CRT: |-
+      -----BEGIN CERTIFICATE-----
+      MIIFLTCCAxWgAwIBAgIUdSe2041YNDPVLKGvdqsjFXVxqZUwDQYJKoZIhvcNAQEN
+      BQAwLTETMBEGA1UECgwKaW8uc3RyaW16aTEWMBQGA1UEAwwNY2x1c3Rlci1jYSB2
+      MDAeFw0yMjA5MTIwNjAyMDNaFw0yMzA5MTIwNjAyMDNaMC0xEzARBgNVBAoMCmlv
+      LnN0cmltemkxFjAUBgNVBAMMDWNsdXN0ZXItY2EgdjAwggIiMA0GCSqGSIb3DQEB
+      AQUAA4ICDwAwggIKAoICAQDNqzfKD3WU3pJg2eHtJPPADWwFk3lPFldJvJ50vtsk
+      AioHS6V3t2Qfcv0BHKaw7qDBWQFdzE8t7lfpntD7yBIhU8AMCGy0JyMh91hNLggb
+      +9K9OsGqGLnFbn969lilGWlymgFUuGChUiF1K5Yo4GVa+yt8/QUDMyTQzoWvARVA
+      Zw1a/KzH45umDDtEXOSj2dBDwAjZcuBdI+CK5KwX2ZFsUDnH6695egplRUI+aCx3
+      Jhmva4hnVWczviOoOMvR5oxYIyHgv6Okl5SS/kMfNSAcDJe6JB+5/Mza4zzrtxCH
+      8AtE1uAqjzx0bFsNjmnycJXg20yDLmQOtIa88szwJsjYUtnyVjhkPqdsNk83vbhD
+      /irv89A6zh4nh/DQza3dmUIRiHTtQDtoWnSxK0tY4Rz0RA0YuJ8RGSHGdjvrlgw5
+      0e67LKZqPIHOr+tdZSOLaKv/qWoYnhVuEZX2oalOwizDER7kU0V5FADUYI4b0WUj
+      oROEKqEMOy1Q2RSOGiODApUAH6A5VX+J97oKjxwjEkP5zGwP9MFOsVFKXlFPa8HL
+      +5e8qqXmGxDjamjVyVdowv/5kGqdaEU1NnbLvRgZFxtCiTStyy7oe2citHquM6b9
+      +OR26OFmnSkcYp9TJF4i+Q5nLTDC4QhfK9ObKk8Q6aOuHISy8X44+7lnG2iLSNxS
+      ZwIDAQABo0UwQzAdBgNVHQ4EFgQUWkBPy3IiBBPCDuuWf3hRnPfDRR0wEgYDVR0T
+      AQH/BAgwBgEB/wIBADAOBgNVHQ8BAf8EBAMCAQYwDQYJKoZIhvcNAQENBQADggIB
+      AElRl1N7gEuskdeXdAIkcGgXqajNUVFA0t3ZSbD2TVwQ5v3Vcu+U5OcnJTutoFre
+      44q/v6NSNLYf/5Nj2+pkRk7y3OawvW6W4ZF+9taXEYFe90Y30GEGz5O4Pb5k73gs
+      gzqfn+7gFfRjOZ4r2Rnaw4bH7q1b+0G9hX/9kLGbAVSnFst8Bcy+Jj6D6Bvmqovw
+      HNjUxp+zVfyf5MX9MgGD//opHN+IT0xN0Z57ie+/jVqQ8Z6uWVz/AJe5BddI3hvB
+      uo/zkajvjHnQSyOj4xkztHcun1LNY37UOoHqosoow6Dryk3XLgXSR7sBSylCl2wN
+      7tBoRg6YIjVaKiKqeiYD/azheL115SOGnDYPY7Ntru4048dvLF+EUyl8lWknbo3v
+      ZN/SzcwEoWmiOeAtZ+XhqWDgkO9YH0ZmBq4ra0OlGhbaASraTDp9xeIqULnqs9ch
+      u1c5B/mT8Tu3uK8Ta3SzGrlsqWat91ROOfJlnLeapkJDw7n4B/sXnREtH9GJ3KVs
+      zoGW4wbMvmvjMN/tEirVmpJfATm/kiYcAGTEU6wPkUVp28kGdF6yRo+NDJA00kAk
+      fxwF3z+sMyOXsyWGd3IHLIN6/gpFidLLw/Srzjj463IQxVMeiSLxofoWQI3xY91q
+      312DZxdKV45EE203HbStXCVgEm8aq9Adp3ODUEgo4F6f
       -----END CERTIFICATE-----
     
   templates:

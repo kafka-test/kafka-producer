@@ -11,6 +11,7 @@ def send_message(counter, topic):
     producer.send(topic, json.dumps(message, default = json_util.default).encode('utf-8'))
 
 # 'kafka-cluster-kafka-rtlistener-bootstrap-openshift-operators.apps-crc.testing:443'
+hostname = os.environ['HOSTNAME']
 kafka_server = os.environ['KAFKA_SERVER']
 kafka_topic_1 = os.environ['KAFKA_TOPIC_1']
 kafka_topic_2 = os.environ['KAFKA_TOPIC_2']
@@ -23,7 +24,8 @@ producer = KafkaProducer(bootstrap_servers = kafka_server,
 i = 0
 while True:
     i += 1
+    msg = hostname + ' ' + str(i)
     topic = kafka_topic_1 if (i % 2) == 1 else kafka_topic_2
-    send_message(i, topic)
+    send_message(msg, topic)
     time.sleep(0.5)
   
