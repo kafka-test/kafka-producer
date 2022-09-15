@@ -18,7 +18,7 @@ kafka_server = os.environ['KAFKA_SERVER']
 kafka_topic_1 = os.environ['KAFKA_TOPIC_1']
 kafka_topic_2 = os.environ['KAFKA_TOPIC_2']
 
-client = KafkaAdminClient(bootstrap_servers = kafka_server
+client = KafkaAdminClient(bootstrap_servers = kafka_server,
                          ssl_cafile = '/mnt/kafka-config/ca.crt',
                          security_protocol="SSL")
 rsp = client.create_partitions({
