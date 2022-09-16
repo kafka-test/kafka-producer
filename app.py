@@ -23,7 +23,7 @@ try:
         kafka_topic_2: NewPartitions(10)
     })
 except:
-    err_msg = "Topics {} {} already exist".format(kafka_topic_1, kafka_topic_2)
+    err_msg = "Topics {} {} already have partitions".format(kafka_topic_1, kafka_topic_2)
     print(err_msg)
 
 print("Producing messages to Kafka topic ...")
