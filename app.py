@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import os
-from kafka import KafkaProducer, KafkaAdminClient
+from kafka import KafkaProducer, KafkaAdminClient, NewTopic
 from json import dumps
 from kafka.admin.new_partitions import NewPartitions
 from time import sleep
@@ -17,17 +17,14 @@ client = KafkaAdminClient(bootstrap_servers = kafka_server,
                          ssl_cafile = '/mnt/kafka-config/ca.crt',
                          security_protocol="SSL")
 
-try:  
-    client.delete_topics([kafka_topic_1, kafka_topic_2])
+try:
+    client.create_partitions({
+        kafka_topic_1: NewPartitions(10),
+        kafka_topic_2: NewPartitions(10)
+    })
 except:
-    err_msg  = "Unable to delete {} or {}".format(kafka_topic_1, kafka_topic_2)
+    err_msg = "Topics {} {} already exist".format(kafka_topic_1, kafka_topic_2)
     print(err_msg)
-
-client.create_topics([kafka_topic_1, kafka_topic_2])
-rsp = client.create_partitions({
-    kafka_topic_1: NewPartitions(10),
-    kafka_topic_2: NewPartitions(10)
-})
 
 print("Producing messages to Kafka topic ...")
 producer = KafkaProducer(bootstrap_servers = kafka_server,
