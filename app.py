@@ -2,7 +2,8 @@
 
 import os
 from kafka import KafkaConsumer, KafkaProducer
-from kafka.admin import KafkaAdminClient, NewTopic, UnknownTopicOrPartitionError, TopicAlreadyExistsError
+from kafka.admin import KafkaAdminClient, NewTopic
+from kafka.errors import UnknownTopicOrPartitionError, TopicAlreadyExistsError
 from json import dumps
 from kafka.admin.new_partitions import NewPartitions
 from time import sleep
