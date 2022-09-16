@@ -17,8 +17,8 @@ client = KafkaAdminClient(bootstrap_servers = kafka_server,
                          ssl_cafile = '/mnt/kafka-config/ca.crt',
                          security_protocol="SSL")
                          
-client.delete_topics([kafka_topic_1, kafka_topic_1])
-client.create_topics([kafka_topic_1, kafka_topic_1])
+client.delete_topics([kafka_topic_1, kafka_topic_2])
+client.create_topics([kafka_topic_1, kafka_topic_2])
 rsp = client.create_partitions({
     kafka_topic_1: NewPartitions(10),
     kafka_topic_2: NewPartitions(10)
