@@ -16,13 +16,13 @@ kafka_topic_2 = os.environ['KAFKA_TOPIC_2']
 client = KafkaAdminClient(bootstrap_servers = kafka_server,
                          ssl_cafile = '/mnt/kafka-config/ca.crt',
                          security_protocol="SSL")
-topic_partition_ids = client.get_partition_ids_for_topic(kafka_topic_1)
-
-if not topic_partition_ids:
-    rsp = client.create_partitions({
-        kafka_topic_1: NewPartitions(10),
-        kafka_topic_2: NewPartitions(10)
-    })
+                         
+client.delete_topics([kafka_topic_1, kafka_topic_1])
+client.create_topics([kafka_topic_1, kafka_topic_1])
+rsp = client.create_partitions({
+    kafka_topic_1: NewPartitions(10),
+    kafka_topic_2: NewPartitions(10)
+})
 
 print("Producing messages to Kafka topic ...")
 producer = KafkaProducer(bootstrap_servers = kafka_server,
