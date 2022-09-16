@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import os
-from kafka import KafkaProducer, KafkaAdminClient
+from kafka import KafkaProducer, KafkaAdminClient, NewTopic, UnknownTopicOrPartitionError
 from json import dumps
 from kafka.admin.new_partitions import NewPartitions
 from time import sleep
@@ -13,12 +13,22 @@ kafka_server = os.environ['KAFKA_SERVER']
 kafka_topic_1 = os.environ['KAFKA_TOPIC_1']
 kafka_topic_2 = os.environ['KAFKA_TOPIC_2']
 
-client = KafkaAdminClient(bootstrap_servers = kafka_server,
+admin_client = KafkaAdminClient(bootstrap_servers = kafka_server,
                          ssl_cafile = '/mnt/kafka-config/ca.crt',
                          security_protocol="SSL")
 
+topic_names = [kafka_topic_1, kafka_topic_2]
 try:
-    client.create_partitions({
+    admin_client.delete_topics(topics=topic_names)
+    print("Topic Deleted Successfully")
+except UnknownTopicOrPartitionError as e:
+    print("Topic Doesn't Exist")
+    print(e)
+except  Exception as e:
+    print(e)
+
+try:
+    admin_client.create_partitions({
         kafka_topic_1: NewPartitions(10),
         kafka_topic_2: NewPartitions(10)
     })
