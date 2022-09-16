@@ -52,7 +52,7 @@ try:
 except UnknownTopicOrPartitionError as e:
     print("Topic Doesn't Exist")
     print(e)
-except  Exception as e:
+except Exception as e:
     print(e)
     
 create_topics(topic_names)
