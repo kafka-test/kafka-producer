@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import os
-from kafka import KafkaProducer, KafkaAdminClient, NewTopic, UnknownTopicOrPartitionError, TopicAlreadyExistsError
+from kafka import KafkaConsumer, KafkaProducer, KafkaAdminClient, NewTopic, UnknownTopicOrPartitionError, TopicAlreadyExistsError
 from json import dumps
 from kafka.admin.new_partitions import NewPartitions
 from time import sleep
