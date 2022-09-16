@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import os
-from kafka import KafkaProducer, KafkaAdminClient, NewTopic
+from kafka import KafkaProducer, KafkaAdminClient
 from json import dumps
 from kafka.admin.new_partitions import NewPartitions
 from time import sleep
