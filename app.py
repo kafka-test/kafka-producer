@@ -1,14 +1,12 @@
 #!/usr/bin/env python
 
 import os
-from kafka import KafkaConsumer, KafkaProducer, KafkaAdminClient, NewTopic, UnknownTopicOrPartitionError, TopicAlreadyExistsError
+from kafka import KafkaConsumer, KafkaProducer, UnknownTopicOrPartitionError, TopicAlreadyExistsError
+from kafka.admin import KafkaAdminClient, NewTopic
 from json import dumps
 from kafka.admin.new_partitions import NewPartitions
 from time import sleep
 
-consumer = KafkaConsumer(bootstrap_servers = kafka_server,
-                         ssl_cafile = '/mnt/kafka-config/ca.crt',
-                         security_protocol="SSL")
 
 def create_topics(topic_names):
     existing_topic_list = consumer.topics()
@@ -38,6 +36,10 @@ kafka_server = os.environ['KAFKA_SERVER']
 kafka_topic_1 = os.environ['KAFKA_TOPIC_1']
 kafka_topic_2 = os.environ['KAFKA_TOPIC_2']
 
+consumer = KafkaConsumer(bootstrap_servers = kafka_server,
+                         ssl_cafile = '/mnt/kafka-config/ca.crt',
+                         security_protocol="SSL")
+                         
 admin_client = KafkaAdminClient(bootstrap_servers = kafka_server,
                                 ssl_cafile = '/mnt/kafka-config/ca.crt',
                                 security_protocol="SSL")
