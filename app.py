@@ -16,8 +16,13 @@ kafka_topic_2 = os.environ['KAFKA_TOPIC_2']
 client = KafkaAdminClient(bootstrap_servers = kafka_server,
                          ssl_cafile = '/mnt/kafka-config/ca.crt',
                          security_protocol="SSL")
-                         
-client.delete_topics([kafka_topic_1, kafka_topic_2])
+
+try:  
+    client.delete_topics([kafka_topic_1, kafka_topic_2])
+except:
+    err_msg  = "Unable to delete {} or {}".format(kafka_topic_1, kafka_topic_2)
+    print(err_msg)
+
 client.create_topics([kafka_topic_1, kafka_topic_2])
 rsp = client.create_partitions({
     kafka_topic_1: NewPartitions(10),
