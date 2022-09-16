@@ -57,15 +57,6 @@ except  Exception as e:
     
 create_topics(topic_names)
 
-try:
-    admin_client.create_partitions({
-        kafka_topic_1: NewPartitions(10),
-        kafka_topic_2: NewPartitions(10)
-    })
-except:
-    err_msg = "Topics {} {} already have partitions".format(kafka_topic_1, kafka_topic_2)
-    print(err_msg)
-
 print("Producing messages to Kafka topic ...")
 producer = KafkaProducer(bootstrap_servers = kafka_server,
                          ssl_cafile = '/mnt/kafka-config/ca.crt',
